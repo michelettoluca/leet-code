@@ -3,30 +3,23 @@ package it.lucamicheletto.easy;
 public class LC_03_RomanToInteger {
     public int romanToInt(String s) {
         int total = 0;
+        int current;
+        int prev = 0;
 
-        int[] numbers = new int[s.length()];
+        for (int i = s.length() - 1; i >= 0; i--) {
+            current = romanDigitToInt(s.charAt(i));
 
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            numbers[i] = romanDigitToInt(chars[i]);
-        }
-
-        int i = 0;
-        while (i < numbers.length) {
-            int acc = 0;
-
-            while (i != numbers.length - 1 && numbers[i] < numbers[i + 1]) {
-                acc += numbers[i];
-                i++;
+            if (current < prev) {
+                total -= current;
+            } else {
+                total += current;
             }
 
-            total += numbers[i] - acc;
-            i++;
+            prev = current;
         }
 
         return total;
     }
-
 
     public int romanDigitToInt(char romanDigit) {
         return switch (romanDigit) {
