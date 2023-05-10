@@ -1,6 +1,6 @@
 package it.lucamicheletto.easy;
 
-public class LC_02_IsPalindrome {
+public class LC_09_IsPalindrome {
     public boolean isPalindrome(int x) {
         String str = String.valueOf(x);
         int len = str.length();

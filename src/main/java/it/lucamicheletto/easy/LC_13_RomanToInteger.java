@@ -1,6 +1,6 @@
 package it.lucamicheletto.easy;
 
-public class LC_03_RomanToInteger {
+public class LC_13_RomanToInteger {
     public int romanToInt(String s) {
         int total = 0;
         int current;
