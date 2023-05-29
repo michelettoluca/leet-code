@@ -20,7 +20,7 @@ public class LC_88_MergeSortedArray {
         int k = m + n - 1;
 
         while (i >= 0) {
-            if (j >= 0 && nums1[i] <= nums2[j]) {
+            if (j >= 0 && nums1[i] > nums2[j]) {
                 nums1[k] = nums1[i--];
             } else {
                 nums1[k] = nums2[j--];
