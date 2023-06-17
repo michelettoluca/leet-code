@@ -5,19 +5,24 @@ import java.util.Map;
 
 public class LC_169_MajorityElement {
     public int majorityElement(int[] nums) {
-        int threshold = nums.length / 2;
-
-        HashMap<Integer, Integer> numsCount = new HashMap<>();
+        int count = 1;
+        int ele = nums[0];
 
         for (int num : nums) {
-            numsCount.merge(num, 1, Integer::sum);
+
+            if (num == ele) {
+                count++;
+            } else {
+                count--;
+            }
+
+
+            if (count == 0) {
+                ele = num;
+                count = 1;
+            }
         }
 
-        return numsCount.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() > threshold)
-                .findFirst()
-                .map(Map.Entry::getKey)
-                .orElse(0);
+        return ele;
     }
 }
