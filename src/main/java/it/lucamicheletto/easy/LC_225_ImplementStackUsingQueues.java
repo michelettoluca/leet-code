@@ -5,61 +5,36 @@ import java.util.Queue;
 
 public class LC_225_ImplementStackUsingQueues {
     class MyStack {
-        private Queue<Integer> _queueA;
-        private Queue<Integer> _queueB;
+        private final Queue<Integer> stacklike;
+        private final Queue<Integer> supportQueue;
 
         public MyStack() {
-            this._queueA = new ArrayDeque<>();
-            this._queueB = new ArrayDeque<>();
+            this.stacklike = new ArrayDeque<>();
+            this.supportQueue = new ArrayDeque<>();
         }
 
         public void push(int x) {
-            Queue<Integer> queue = _queueA;
-
-            if (_queueA.isEmpty()) {
-                queue = _queueB;
+            while (!stacklike.isEmpty()) {
+                supportQueue.add(stacklike.remove());
             }
 
-            queue.add(x);
+            stacklike.add(x);
+
+            while (!supportQueue.isEmpty()) {
+                stacklike.add(supportQueue.remove());
+            }
         }
 
         public int pop() {
-            Queue<Integer> queueA = _queueA;
-            Queue<Integer> queueB = _queueB;
-
-            if (_queueA.isEmpty()) {
-                queueA = _queueB;
-                queueB = _queueA;
-            }
-
-            while (queueA.size() != 1) {
-                queueB.add(queueA.remove());
-            }
-
-            return queueA.remove();
+            return stacklike.remove();
         }
 
         public int top() {
-            Queue<Integer> queueA = _queueA;
-            Queue<Integer> queueB = _queueB;
-
-            if (_queueA.isEmpty()) {
-                queueA = _queueB;
-                queueB = _queueA;
-            }
-
-            while (queueA.size() != 1) {
-                queueB.add(queueA.remove());
-            }
-
-            Integer value = queueA.remove();
-            queueB.add(value);
-
-            return value;
+            return stacklike.peek();
         }
 
         public boolean empty() {
-            return _queueA.isEmpty() && _queueB.isEmpty();
+            return stacklike.isEmpty();
         }
     }
 }
