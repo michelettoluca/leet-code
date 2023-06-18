@@ -9,31 +9,20 @@ public class LC_228_SummaryRanges {
 
         if (nums.length == 0) return ranges;
 
-        int[] range = new int[]{nums[0], nums[0]};
+        for (int i = 0; i < nums.length; i++) {
+            int start = nums[i];
 
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i - 1] == nums[i] - 1) {
-                range[1] = nums[i];
+            while (i + 1 < nums.length && nums[i] == nums[i + 1] - 1) {
+                i++;
+            }
 
+            if (start != nums[i]) {
+                ranges.add(start + "->" + nums[i]);
             } else {
-                ranges.add(rangeToString(range));
-
-                range[0] = range[1] = nums[i];
+                ranges.add(start + "");
             }
         }
 
-        if (range[1] == nums[nums.length - 1]) {
-            ranges.add(rangeToString(range));
-        }
-
         return ranges;
-    }
-
-    private String rangeToString(int[] range) {
-        if (range[0] == range[1]) {
-            return range[0] + "";
-        } else {
-            return range[0] + "->" + range[1];
-        }
     }
 }
